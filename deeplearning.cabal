@@ -28,9 +28,12 @@ library
                      , cereal
                      , random
                      , array
+                     , ghc-prim
+                     , mtl
   other-modules:       Lib.Utility
                      , Lib.Utility.MBool
                      , Lib.Utility.Mnist
+                     , Lib.Utility.Mnist.IO
                      , Lib.Utility.Differentiation
                      , Lib.Utility.NeuralNet
                      , Lib.Practice.P0

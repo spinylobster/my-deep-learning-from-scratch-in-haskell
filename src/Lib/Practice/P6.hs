@@ -3,24 +3,25 @@ module Lib.Practice.P6
         f6
     ) where
 
-import Lib.Utility
+import Lib.Utility.Mnist
 import Control.Monad.Trans.Maybe
-import Numeric.LinearAlgebra
+import Control.Monad.IO.Class
+import Numeric.LinearAlgebra.Static
+import qualified Numeric.LinearAlgebra as LA
 
 f6' :: MaybeT IO ()
 f6' = do
     ((trD, trL), _) <- getMnistData
     MaybeT $ fmap Just $ print $ size trD
-    let (l, d) = (trL ! 0, trD ! 0)
-    MaybeT $ fmap Just $ print d
-    MaybeT $ fmap Just $ print l
+    let (l, d) = (extract trL LA.! 0, extract trD LA.! 0)
+    liftIO $ print d
+    liftIO $ print l
     -- TODO 画像の表示
 
 f6 :: IO ()
-f6 = result
-    where (MaybeT m)    = f6'
-          result        = do
-            result' <- m
-            case result' of
-                Nothing -> return ()
-                Just x -> return x
+f6 = do
+    let (MaybeT result) = f6'
+    result' <- result
+    case result' of
+        Nothing -> print "失敗"
+        Just x -> return x

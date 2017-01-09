@@ -28,5 +28,12 @@ f5 = do
     let y = a3
     print y
 
-    let a4 = (1><3) [1010,1000,900 :: Double]
-    print $ sumElements $ softmax a4
+    let a4 = (1><3) [1010,1000,990 :: Double]
+    print $ softmax' a4
+
+softmax' :: Matrix Double -> Matrix Double
+softmax' a = expA / sumExpA
+    where (r, c) = size a
+          maxs = col $ map maxElement $ toRows a
+          expA = cmap exp $ a - maxs
+          sumExpA = row $ map sumElements $ toRows expA
