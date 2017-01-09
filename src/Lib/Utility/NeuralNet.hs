@@ -14,9 +14,6 @@ import Control.Arrow
 import GHC.TypeLits
 import Data.Proxy
 
-data NAry (as :: *) a where
-  Value :: a -> NAry a a
-  Arg   :: NAry xs a -> NAry xs a
 data Layer (il :: Nat) (is :: Nat) (wc :: Nat) (state :: *) where
     Layer :: state -> (X il is -> (Y il wc, state)) -> (state -> Delta il wc -> (DX il is, state)) -> Layer il is wc state
 
